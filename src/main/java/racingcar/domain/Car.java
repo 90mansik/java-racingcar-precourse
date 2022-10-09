@@ -1,45 +1,40 @@
 package racingcar.domain;
 
 public class Car {
-    private final String name;
+    public static final int POSITION_MOVE_STANDARD_NO = 4;
+    private final CarName name;
     private int position;
 
+
     public Car(String name, int position) {
-        this.name = name;
+        this.name = new CarName(name);
         this.position = position;
     }
 
-    public Car(String name){
-        this.name = name;
+    public Car(String name) {
+        this.name = new CarName(name);
         this.position = 0;
     }
 
-    public void validCarName(String carName) {
-        if(!validCarNameLength(carName)){
-            throw new IllegalArgumentException("[ERROR]자동차 이름은 5자 이하만 가능합니다.");
-        }
-    }
 
     public boolean validMove(int randomNo) {
-        return randomNo >=4;
+        return randomNo >= POSITION_MOVE_STANDARD_NO;
     }
 
-    public  int move(int randomNo) {
-        if(validMove(randomNo)){
+    public int move(int randomNo) {
+        if (validMove(randomNo)) {
             this.position++;
         }
         return this.position;
     }
 
     public String getName() {
-        return name;
+        return name.getName();
     }
 
     public int getPosition() {
         return position;
     }
 
-    public boolean validCarNameLength(String carName) {
-        return carName.length() < 6;
-    }
+
 }
