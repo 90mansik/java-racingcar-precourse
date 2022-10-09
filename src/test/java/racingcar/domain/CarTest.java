@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 class CarTest {
@@ -18,11 +19,19 @@ class CarTest {
 
     @Test
     public void 자동차_이름_유효성_검증(){
-        Assertions.assertThat(car.validCarName("testcase")).isFalse();
-        Assertions.assertThat(car.validCarName("pobi")).isTrue();
-        Assertions.assertThat(car.validCarName("crong")).isTrue();
-        Assertions.assertThat(car.validCarName("honux")).isTrue();
+        assertThatThrownBy(() -> {
+            car.validCarName("testcase");
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR]자동차 이름은 5자 이하만 가능합니다.");
     }
+
+    @Test
+    public void 자동차_이름_길이제한_유효성_검증(){
+        Assertions.assertThat(car.validCarNameLength("testcase")).isFalse();
+        Assertions.assertThat(car.validCarNameLength("pobi")).isTrue();
+        Assertions.assertThat(car.validCarNameLength("crong")).isTrue();
+    }
+
 
     @Test
     public void 자동차_전진_유효성_검증(){
@@ -37,6 +46,18 @@ class CarTest {
         Assertions.assertThat(car.move(4)).isEqualTo(1);
         Assertions.assertThat(car.move(3)).isEqualTo(1);
         Assertions.assertThat(car.move(5)).isEqualTo(2);
+    }
+
+    @Test
+    public void 자동차_이름_부여_검증(){
+        //given
+        car = new Car("woni");
+
+        //when
+        String result = car.getName();
+
+        //then
+        Assertions.assertThat(result).isEqualTo("woni");
     }
 
 
