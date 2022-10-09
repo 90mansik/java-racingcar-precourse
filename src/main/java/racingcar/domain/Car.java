@@ -9,8 +9,15 @@ public class Car {
         this.position = position;
     }
 
-    public boolean validCarName(String carName) {
-        return carName.length() < 6;
+    public Car(String name){
+        this.name = name;
+        this.position = 0;
+    }
+
+    public void validCarName(String carName) {
+        if(!validCarNameLength(carName)){
+            throw new IllegalArgumentException("[ERROR]자동차 이름은 5자 이하만 가능합니다.");
+        }
     }
 
     public boolean validMove(int randomNo) {
@@ -30,5 +37,9 @@ public class Car {
 
     public int getPosition() {
         return position;
+    }
+
+    public boolean validCarNameLength(String carName) {
+        return carName.length() < 6;
     }
 }
