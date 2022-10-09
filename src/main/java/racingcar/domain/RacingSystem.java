@@ -9,7 +9,12 @@ public class RacingSystem {
 
     private List<Car> cars;
     private int randomNo;
+    private int finishPosition;
 
+    public RacingSystem(){}
+    public RacingSystem(int finishPosition){
+        this.finishPosition = finishPosition;
+    }
     public String[] splitCarsName(String carsName, String regex) {
 
         return carsName.split(",");
@@ -33,5 +38,33 @@ public class RacingSystem {
     public int getRandomNo(){
         createRandomNo();
         return this.randomNo;
+    }
+
+    public boolean finishRacing(int position) {
+        if( finishPosition == position){
+            return true;
+        }
+        return false;
+    }
+
+    public String getVictoryCars(List<Car> cars) {
+        StringBuilder sb = new StringBuilder();
+        int index=0;
+
+        for (Car car: cars ) {
+            if(finishRacing(car.getPosition())){
+                sb.append(makeVictoryCarString(car.getName(), index));
+            }
+            index++;
+        }
+
+        return sb.toString();
+    }
+
+    private String makeVictoryCarString(String name, int index){
+        if(index != 0){
+            name = ", "+name;
+        }
+        return name;
     }
 }
