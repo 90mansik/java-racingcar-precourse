@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -47,6 +48,89 @@ class RacingSystemTest {
         boolean result = randomNo >= 0 && randomNo <= 9 ? true : false;
         //then
         Assertions.assertThat(result).isTrue();
+
+    }
+
+    @Test
+    public void 종료지점_도착_검증(){
+        //given
+        int finalPosition = 3;
+        racingSystem = new RacingSystem(finalPosition);
+        Car car1 = new Car("choi");
+        Car car2 = new Car("pobi");
+
+        car1.move(4);
+        car1.move(5);
+        car1.move(3);
+        car1.move(4);
+
+        car2.move(4);
+        car2.move(1);
+        car2.move(2);
+        car2.move(4);
+
+        //when, then
+        Assertions.assertThat(racingSystem.finishRacing(car1.getPosition())).isTrue();
+        Assertions.assertThat(racingSystem.finishRacing(car2.getPosition())).isFalse();
+    }
+
+    @Test
+    public void 단독우승자_결과_검증(){
+        //given
+        int finalPosition = 3;
+        racingSystem = new RacingSystem(finalPosition);
+        Car car1 = new Car("choi");
+        Car car2 = new Car("pobi");
+
+        car1.move(4);
+        car1.move(5);
+        car1.move(3);
+        car1.move(4);
+
+        car2.move(4);
+        car2.move(1);
+        car2.move(2);
+        car2.move(4);
+
+        List<Car> cars = new ArrayList<>();
+        cars.add(car1);
+        cars.add(car2);
+
+        //when
+        String result = racingSystem.getVictoryCars(cars);
+
+        //then
+        Assertions.assertThat(result).isEqualTo("choi");
+
+    }
+
+    @Test
+    public void 공동우승자_결과_검증(){
+        //given
+        int finalPosition = 3;
+        racingSystem = new RacingSystem(finalPosition);
+        Car car1 = new Car("choi");
+        Car car2 = new Car("pobi");
+
+        car1.move(4);
+        car1.move(5);
+        car1.move(3);
+        car1.move(4);
+
+        car2.move(4);
+        car2.move(3);
+        car2.move(7);
+        car2.move(4);
+
+        List<Car> cars = new ArrayList<>();
+        cars.add(car1);
+        cars.add(car2);
+
+        //when
+        String result = racingSystem.getVictoryCars(cars);
+
+        //then
+        Assertions.assertThat(result).isEqualTo("choi, pobi");
 
     }
 
