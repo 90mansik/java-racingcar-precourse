@@ -16,7 +16,7 @@ public class Position {
         if (!validNullPosition(position)) {
             throw new IllegalArgumentException(ErrorMessage.POSITION_NULL_ERROR.getMessage());
         }
-        if (!validNullPosition(position)){
+        if (!validNumberPosition(position)) {
             throw new IllegalArgumentException(ErrorMessage.POSITION_NUMBER_FORMAT_VALID_ERROR.getMessage());
         }
 
@@ -28,10 +28,10 @@ public class Position {
         return position != null;
     }
 
-    private boolean validNumberPositon(String position) {
+    private boolean validNumberPosition(String position) {
         try {
             this.position = Integer.parseInt(position);
-            if (this.position > POSITION_MIN) {
+            if (this.position >= POSITION_MIN) {
                 return true;
             }
         } catch (IllegalArgumentException e) {
