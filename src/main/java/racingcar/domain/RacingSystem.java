@@ -9,17 +9,14 @@ public class RacingSystem {
 
     private List<Car> cars;
     private int randomNo;
-    private int finishPosition;
+    private Position finishPosition;
 
     public RacingSystem() {
     }
 
-    public RacingSystem(String finishPosition) {
-        this.finishPosition = Integer.parseInt(finishPosition);
-    }
 
-    public RacingSystem( String cars, String finishPosition) {
-        this.finishPosition = Integer.parseInt(finishPosition);
+    public RacingSystem(String cars, String finishPosition) {
+        this.finishPosition = new Position(finishPosition);
         this.cars = addCarsName(cars);
     }
 
@@ -98,7 +95,7 @@ public class RacingSystem {
     }
 
     public int getFinishPosition() {
-        return finishPosition;
+        return finishPosition.getPosition();
     }
 
 
