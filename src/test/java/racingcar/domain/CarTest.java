@@ -20,9 +20,9 @@ class CarTest {
     @Test
     public void 자동차_이름_유효성_검증() {
         assertThatThrownBy(() -> {
-            new Car("testcase");
+            new Car("javaji");
         }).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR]자동차 이름은 5자 이하만 가능합니다.");
+                .hasMessage("[ERROR] 자동차 이름은 5자 이하만 가능합니다.");
     }
 
     @Test
