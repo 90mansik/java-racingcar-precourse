@@ -7,7 +7,15 @@ public class InputView {
     PrintMessage printMessage = new PrintMessage();
     public String getFinishPosition() {
         printPlayCountMessage();
-        return Console.readLine();
+        String position = "";
+
+        try{
+            position = Console.readLine();
+        }catch (Exception e){
+            throw new IllegalArgumentException("[ERROR] 시도횟수를 입력 해 주시기 바랍니다.");
+
+        }
+        return position;
     }
 
     public String getCarNames() {
@@ -22,4 +30,5 @@ public class InputView {
     private void printRequestCarNamesMessage() {
         printMessage.printRequestCarNamesMessage();
     }
+
 }

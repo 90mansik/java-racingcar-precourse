@@ -12,7 +12,6 @@ public class OutputView {
         }
     }
 
-
     public String makeResult(Car car) {
         String result = "";
 
