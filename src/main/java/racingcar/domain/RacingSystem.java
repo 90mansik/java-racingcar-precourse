@@ -9,17 +9,17 @@ public class RacingSystem {
 
     private List<Car> cars;
     private int randomNo;
-    private String finishPosition;
+    private int finishPosition;
 
     public RacingSystem() {
     }
 
     public RacingSystem(String finishPosition) {
-        this.finishPosition = finishPosition;
+        this.finishPosition = Integer.parseInt(finishPosition);
     }
 
-    public RacingSystem(String finishPosition, String cars) {
-        this.finishPosition = finishPosition;
+    public RacingSystem( String cars, String finishPosition) {
+        this.finishPosition = Integer.parseInt(finishPosition);
         this.cars = addCarsName(cars);
     }
 
@@ -62,8 +62,8 @@ public class RacingSystem {
         for (Car car : cars) {
             if (isVictoryCar(maxCount, car.getPosition())) {
                 sb.append(makeVictoryCarString(car.getName(), index));
+                index++;
             }
-            index++;
         }
 
         return sb.toString();
@@ -96,4 +96,10 @@ public class RacingSystem {
         int no = Integer.parseInt(randomNo);
         car.move(no);
     }
+
+    public int getFinishPosition() {
+        return finishPosition;
+    }
+
+
 }

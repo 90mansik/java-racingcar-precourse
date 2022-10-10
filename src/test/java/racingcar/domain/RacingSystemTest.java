@@ -82,13 +82,13 @@ class RacingSystemTest {
         Car car1 = new Car("choi");
         Car car2 = new Car("pobi");
 
-        car1.move(4);
+        car1.move(2);
         car1.move(5);
         car1.move(3);
         car1.move(4);
 
         car2.move(4);
-        car2.move(1);
+        car2.move(5);
         car2.move(2);
         car2.move(4);
 
@@ -100,7 +100,7 @@ class RacingSystemTest {
         String result = racingSystem.getVictoryCars(cars);
 
         //then
-        Assertions.assertThat(result).isEqualTo("choi");
+        Assertions.assertThat(result).isEqualTo("pobi");
 
     }
 
@@ -138,7 +138,7 @@ class RacingSystemTest {
         //given
         String cars = "choi,crong,honux";
         //when
-        racingSystem = new RacingSystem("3", cars);
+        racingSystem = new RacingSystem(cars,"3");
         racingSystem.racingCar(racingSystem.getCars().get(0), "4");
         racingSystem.racingCar(racingSystem.getCars().get(1), "3");
         racingSystem.racingCar(racingSystem.getCars().get(2), "4");
