@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,77 +54,61 @@ class RacingSystemTest {
     public void 종료지점_도착_검증(){
         //given
         String finalPosition = "3";
-        racingSystem = new RacingSystem(finalPosition);
-        Car car1 = new Car("choi");
-        Car car2 = new Car("pobi");
+        String carsName = "choi,pobi";
+        racingSystem = new RacingSystem(carsName, finalPosition);
 
-        car1.move(4);
-        car1.move(5);
-        car1.move(3);
-        car1.move(4);
+        racingSystem.getCars().get(0).move(4);
+        racingSystem.getCars().get(0).move(5);
+        racingSystem.getCars().get(0).move(3);
+        racingSystem.getCars().get(0).move(4);
 
-        car2.move(4);
-        car2.move(1);
-        car2.move(2);
-        car2.move(4);
+        racingSystem.getCars().get(1).move(4);
+        racingSystem.getCars().get(1).move(1);
+        racingSystem.getCars().get(1).move(2);
+        racingSystem.getCars().get(1).move(4);
 
         //when, then
-        Assertions.assertThat(racingSystem.isVictoryCar(3,car1.getPosition())).isTrue();
-        Assertions.assertThat(racingSystem.isVictoryCar(3,car2.getPosition())).isFalse();
+        Assertions.assertThat(racingSystem.isVictoryCar(3,racingSystem.getCars().get(0).getPosition())).isTrue();
+        Assertions.assertThat(racingSystem.isVictoryCar(3,racingSystem.getCars().get(1).getPosition())).isFalse();
     }
 
     @Test
     public void 단독우승자_결과_검증(){
         //given
         String finalPosition = "3";
-        racingSystem = new RacingSystem(finalPosition);
-        Car car1 = new Car("choi");
-        Car car2 = new Car("pobi");
+        String carsName = "choi,pobi";
 
-        car1.move(2);
-        car1.move(5);
-        car1.move(3);
-        car1.move(4);
+        racingSystem = new RacingSystem(carsName, finalPosition);
 
-        car2.move(4);
-        car2.move(5);
-        car2.move(2);
-        car2.move(4);
+        racingSystem.getCars().get(0).move(4);
+        racingSystem.getCars().get(0).move(5);
+        racingSystem.getCars().get(0).move(3);
 
-        List<Car> cars = new ArrayList<>();
-        cars.add(car1);
-        cars.add(car2);
+        racingSystem.getCars().get(1).move(4);
+        racingSystem.getCars().get(1).move(1);
+        racingSystem.getCars().get(1).move(2);
 
         //when
-        String result = racingSystem.getVictoryCars(cars);
+        String result = racingSystem.getVictoryCars(racingSystem.getCars());
 
         //then
-        Assertions.assertThat(result).isEqualTo("pobi");
+        Assertions.assertThat(result).isEqualTo("choi");
 
     }
 
     @Test
     public void 공동우승자_결과_검증(){
         //given
-        String finalPosition = "3";
-        racingSystem = new RacingSystem(finalPosition);
-        Car car1 = new Car("choi");
-        Car car2 = new Car("pobi");
+        String finalPosition = "2";
+        String carsName = "choi,pobi";
+        racingSystem = new RacingSystem(carsName, finalPosition);
 
-        car1.move(4);
-        car1.move(5);
-        car1.move(3);
-        car1.move(4);
+        racingSystem.getCars().get(0).move(4);
+        racingSystem.getCars().get(0).move(3);
+        racingSystem.getCars().get(1).move(4);
+        racingSystem.getCars().get(1).move(3);
 
-        car2.move(4);
-        car2.move(3);
-        car2.move(7);
-        car2.move(4);
-
-        List<Car> cars = new ArrayList<>();
-        cars.add(car1);
-        cars.add(car2);
-
+        List<Car> cars = racingSystem.getCars();
         //when
         String result = racingSystem.getVictoryCars(cars);
 
