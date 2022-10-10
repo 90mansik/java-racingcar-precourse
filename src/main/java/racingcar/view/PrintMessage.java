@@ -9,7 +9,7 @@ public class PrintMessage {
     }
 
     public void printRequestCarNamesMessage() {
-        System.out.println(RacingSystemMessage.INPUT_RACING_CAR_NAMES);
+        System.out.println(RacingSystemMessage.INPUT_RACING_CAR_NAMES.getMessage());
     }
 
     public String printFinalVictoryCarName(){
