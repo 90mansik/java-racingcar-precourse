@@ -54,7 +54,7 @@ class RacingSystemTest {
     @Test
     public void 종료지점_도착_검증(){
         //given
-        int finalPosition = 3;
+        String finalPosition = "3";
         racingSystem = new RacingSystem(finalPosition);
         Car car1 = new Car("choi");
         Car car2 = new Car("pobi");
@@ -70,14 +70,14 @@ class RacingSystemTest {
         car2.move(4);
 
         //when, then
-        Assertions.assertThat(racingSystem.finishRacing(car1.getPosition())).isTrue();
-        Assertions.assertThat(racingSystem.finishRacing(car2.getPosition())).isFalse();
+        Assertions.assertThat(racingSystem.isVictoryCar(3,car1.getPosition())).isTrue();
+        Assertions.assertThat(racingSystem.isVictoryCar(3,car2.getPosition())).isFalse();
     }
 
     @Test
     public void 단독우승자_결과_검증(){
         //given
-        int finalPosition = 3;
+        String finalPosition = "3";
         racingSystem = new RacingSystem(finalPosition);
         Car car1 = new Car("choi");
         Car car2 = new Car("pobi");
@@ -107,7 +107,7 @@ class RacingSystemTest {
     @Test
     public void 공동우승자_결과_검증(){
         //given
-        int finalPosition = 3;
+        String finalPosition = "3";
         racingSystem = new RacingSystem(finalPosition);
         Car car1 = new Car("choi");
         Car car2 = new Car("pobi");
@@ -131,7 +131,21 @@ class RacingSystemTest {
 
         //then
         Assertions.assertThat(result).isEqualTo("choi, pobi");
+    }
 
+    @Test
+    public void 레이싱_결과값_검증(){
+        //given
+        String cars = "choi,crong,honux";
+        //when
+        racingSystem = new RacingSystem("3", cars);
+        racingSystem.racingCar(racingSystem.getCars().get(0), "4");
+        racingSystem.racingCar(racingSystem.getCars().get(1), "3");
+        racingSystem.racingCar(racingSystem.getCars().get(2), "4");
+        //then
+        Assertions.assertThat(racingSystem.getCars().get(0).getPosition()).isEqualTo(1);
+        Assertions.assertThat(racingSystem.getCars().get(1).getPosition()).isEqualTo(0);
+        Assertions.assertThat(racingSystem.getCars().get(2).getPosition()).isEqualTo(1);
     }
 
 
