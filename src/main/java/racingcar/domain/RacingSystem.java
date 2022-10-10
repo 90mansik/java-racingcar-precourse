@@ -1,12 +1,15 @@
 package racingcar.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import racingcar.constant.ErrorMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RacingSystem {
 
+    public static final int RANDOM_NO_MIN = 0;
+    public static final int RANDOM_NO_MAX = 9;
     private List<Car> cars;
     private int randomNo;
     private Position finishPosition;
@@ -14,17 +17,26 @@ public class RacingSystem {
     public RacingSystem() {
     }
 
-
     public RacingSystem(String cars, String finishPosition) {
-        this.finishPosition = new Position(finishPosition);
+        setUpCars(cars);
+        setUpFinishPosition(finishPosition);
+    }
+
+    public void setUpCars(String cars) {
         this.cars = addCarsName(cars);
     }
+
+    public void setUpFinishPosition(String finishPosition) {
+        this.finishPosition = new Position(finishPosition);
+    }
+
 
     public String[] splitCarsName(String carsName, String regex) {
         return carsName.split(",");
     }
 
     public List<Car> addCarsName(String name) {
+        isValidNullCar(name);
         List<Car> cars = new ArrayList<>();
 
         for (String carName : name.split(",")) {
@@ -35,7 +47,7 @@ public class RacingSystem {
     }
 
     public void createRandomNo() {
-        this.randomNo = Randoms.pickNumberInRange(0, 9);
+        this.randomNo = Randoms.pickNumberInRange(RANDOM_NO_MIN, RANDOM_NO_MAX);
     }
 
 
@@ -92,6 +104,12 @@ public class RacingSystem {
     public void racingCar(Car car, String randomNo) {
         int no = Integer.parseInt(randomNo);
         car.move(no);
+    }
+
+    public void isValidNullCar(String cars) {
+        if (cars == null || cars.equals("")) {
+            throw new IllegalArgumentException(ErrorMessage.CAR_NAME_NULL_ERROR.getMessage());
+        }
     }
 
     public int getFinishPosition() {
