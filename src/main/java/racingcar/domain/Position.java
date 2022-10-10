@@ -12,14 +12,33 @@ public class Position {
     }
 
     public Position(String position) {
+
+        if (!validNullPosition(position)) {
+            throw new IllegalArgumentException(ErrorMessage.POSITION_NULL_ERROR.getMessage());
+        }
+        if (!validNullPosition(position)){
+            throw new IllegalArgumentException(ErrorMessage.POSITION_NUMBER_FORMAT_VALID_ERROR.getMessage());
+        }
+
+
+    }
+
+
+    private boolean validNullPosition(String position) {
+        return position != null;
+    }
+
+    private boolean validNumberPositon(String position) {
         try {
             this.position = Integer.parseInt(position);
-            if (this.position < POSITION_MIN) {
-                throw new IllegalArgumentException();
+            if (this.position > POSITION_MIN) {
+                return true;
             }
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(ErrorMessage.POSITION_NUMBER_FORMAT_VALID_ERROR.getMessage());
         }
+
+        return false;
     }
 
     public int getPosition() {
